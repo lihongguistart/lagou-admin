@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '拉勾后台' });
+  res.render('index', { title: 'lagou' });
 });
 
 module.exports = router;

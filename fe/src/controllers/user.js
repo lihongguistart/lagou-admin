@@ -30,7 +30,7 @@ export default{
     $('#btn-submit').on('click', () => {
       // 表单数据
       let data = $('#user-form').serialize()
-      console.log(data)
+      console.log(_url,data)
       $.ajax({
         url: _url,
         type: 'POST',
