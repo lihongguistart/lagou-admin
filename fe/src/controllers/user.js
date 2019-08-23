@@ -10,13 +10,14 @@ export default{
 
 
     let result = await this.isSignin()
-
+    console.log("重新加载")
     let html = userView({
       isSignin: result.ret,
       username : result.data.username
     })
     // console.log(html)
     $('.user-menu').html(html)
+    console.log("绑定")
     this.bindEventToBtn()
   },
   isSignin() {
@@ -24,13 +25,15 @@ export default{
       url: '/api/users/isSignin',
       dataType: 'json',
       success(result) {
-        console.log(result)
+        console.log(result.data.msg)
         return result
       }
     })
   },
 
+
   bindEventToBtn() {
+    console.log("触发")
     $('.hidden-xs').on('click', function() {
 
       // 获取点击目标spanid
@@ -42,7 +45,19 @@ export default{
       $('input').val('')
     })
 
+    $("#btn-signout").on('click',()=>{
+      _type = ''
+      console.log("退出")
+      $.ajax({
+        url: '/api/users/signout',
+        success : this.bindEventSucc.bind(this),
+        error: this.bindEventErr.bind(this)
+        
+      })
+    })
+
     $('#btn-submit').on('click', () => {
+      console.log(this)
       // 表单数据
       let data = $('#user-form').serialize()
       console.log(_url,data)
@@ -50,27 +65,59 @@ export default{
         url: _url,
         type: 'POST',
         data,
-        success(result) {
-          if (_type === 'btn-signin') {
-            if (result.ret) {
-              let html = userView({
-                isSignin: true,
-                username: result.data.username
-              })
-          
-              $('.user-menu').html(html)
-            } else {
-              alert(result.data.msg)
-            }
-          } else {
-            if (result.ret) {
-              alert('注册成功，可以登录了')
-            } else {
-              alert(result.data.msg)
-            }
-          }
-        }
+        success:this.bindEventSucc.bind(this),
+        // success(result) {
+        //   console.log(result.data.msg)
+        //   if (_type === 'btn-signin') {
+        //     if (result.ret) {
+        //       let html = userView({
+        //         isSignin: true,
+        //         username: result.data.username
+        //       })
+        //       console.log(this)
+        //       $('.user-menu').html(html)
+        //       // this.bindEventToBtn()
+        //       // location.reload()
+
+
+        //     } else {
+        //       alert(result.data.msg)
+        //     }
+        //   } else {
+        //     if (result.ret) {
+        //       alert('注册成功，可以登录了')
+        //     } else {
+        //       alert(result.data.msg)
+        //     }
+        //   }
+        // }
       })
     })
+  },
+  bindEventErr(result){
+    alert(result.data.msg)
+  },
+  bindEventSucc(result){
+    console.log(result.data.msg)
+    console.log(result)
+    if(_type === 'btn-signup'){
+      alert(result.data.msg)
+
+    }else if(_type === "btn-signin"){
+      if (result.ret) {
+        let html = userView({
+          isSignin: true,
+          username: result.data.username
+        })
+        $('#user-menu').html(html)
+        this.bindEventToBtn()
+        
+      }else{
+        alert(result.data.msg)
+      }
+    }else{
+      console.log(1)
+      location.reload()
+    }
   }
 }

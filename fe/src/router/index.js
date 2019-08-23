@@ -15,7 +15,7 @@ const router = new SMERouter("router-view",'hash')
 
 // 子路由
 
-
+import user from '../controllers/user'
 // 首页
 import Home from '../controllers/home'
 // 职位
@@ -39,7 +39,7 @@ router.route('/position',Position.render)
 
 // 重定向，默认路由，自动跳转到默认路由
 router.redirect('/')
-
+user.render()
 export default router
 
 

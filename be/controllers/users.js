@@ -15,7 +15,7 @@ module.exports={
     let username = req.session.username
     console.log(15,username,req.session)
     if(username){
-      // next()
+      next()
       res.render('succ',{
         data: JSON.stringify({
           msg:"已登录",
@@ -33,6 +33,7 @@ module.exports={
     }
   },
   async signout(req,res,next){
+    console.log(36+req.url)
     res.set('content-type', 'application/json;charset=utf-8')
 
     req.session = null
