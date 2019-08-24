@@ -19,7 +19,7 @@ module.exports = {
   async save(req,res,next){
     let result = await posModel.save({
       ...req.body,
-      createTime: moment().format('yyyy-MM-DD HH:mm:ss')
+      createTime: moment().format('YYYY-MM-DD HH:mm:ss')
     })
     console.log(result)
     if(result){
@@ -57,7 +57,7 @@ module.exports = {
   async put(req,res,next){
     let result = await posModel.put({
       ...req.body,
-      createTime: moment().format('yyyy-MM-DD HH:mm:ss')
+      createTime: moment().format('YYYY-MM-DD HH:mm:ss')
     })
     console.log(result)
     if(result){

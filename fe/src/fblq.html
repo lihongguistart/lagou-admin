@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var i =0
+    function f(x) {
+      console.log(i++)
+      if(x <= 2) {
+          return 1;
+      }
+      return f(x-1) + f(x-2);
+    }
+    // console.time("sss") 
+   
+
+
+
+    // 50个阶梯，一次可以上一阶或两阶，走上去，共有多少种走法?
+
+    function c(a,n){
+      let d = 1;
+      let x = 1;
+      for(let i=0;i++<a;n--){
+        d *= n;
+        x *= i;
+        // console.log(i,d,x,n)
+      }
+      return d/x;
+      
+    }
+    function a(n){
+      let count = 0;
+      for(let i =0;i< parseInt(n/2)+1;i++){
+        count += c(i,n-i*2+i)
+       
+        console.log(i,c(i,parseInt(n-i*2+i)))
+      }
+      return count;
+    }
+
+    console.log(a(50))
+
+  </script>
+</body>
+</html>

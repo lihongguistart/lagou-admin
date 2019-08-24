@@ -28,7 +28,9 @@ module.exports = {
   },
 
   findone(id){
-    return Model.find({_id : id})
+    // return Model.find({_id : id})//返回数组
+    return Model.findById(id)//返回对象
+
   },
 
   put(data){
