@@ -8,7 +8,7 @@ const Users = require('../controllers/users')
 //   res.send('respond with a resource');
 // });
 // router.all()  get post 都可以请求
-console.log(11111)
+
 router.post('/signup', Users.signup);
 router.post('/signin', Users.signin);
 router.get('/isSignin', Users.isSignin);

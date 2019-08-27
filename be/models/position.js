@@ -4,6 +4,7 @@ const mongoose = require('../utils/db')
 
 // 创建集合模板
 const Model = mongoose.model('positions',{
+  companyLogo: String,
   companyName : String,
   positionName: String,
   city: String,
@@ -36,8 +37,27 @@ module.exports = {
   put(data){
     return Model.updateOne({_id:data.id},data)
   },
+  patch(data){
+    console.log(41 ,     data)
+    debugger
+    // debug
+    return Model.updateOne({_id:data.id},data)
+  },
 
   delete(id){
     return Model.deleteOne({_id: id})
+  },
+
+  search(keywords){
+    return Model.find({
+      $or:[
+        {
+          companyName: new RegExp(keywords,"gi")//全局不区分大小写
+        },
+        {
+          positionName: new RegExp(keywords,"gi")
+        }
+      ]
+    }).sort({_id:-1})
   }
 }

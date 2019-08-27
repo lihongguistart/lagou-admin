@@ -35,7 +35,7 @@ router.use((req,res,next)=>{
 
 // 路由方法 参数1/路径  参数2回调，回调参数（req接收数据，res返回数据，next执行下一个中间件
 // 子路由方法引用
-router.route('/',Home.render)
+router.route('/home',Home.render)// 路由为/时切换会有bug，不建议直接使用/
 router.route('/position',Position.render)
 router.route('/position_add',Position.add)
 router.route('/position_edit',Position.edit)
