@@ -23,7 +23,10 @@ export default{
   isSignin() {
     return $.ajax({
       url: '/api/users/isSignin',
-      dataType: 'json',
+      headers:{
+        'x-access-token':localStorage.getItem('x-access-token')
+      },//首部上传数据
+      // dataType: 'json',
       success(result) {
         console.log(result.data.msg)
         return result
@@ -48,12 +51,17 @@ export default{
     $("#btn-signout").on('click',()=>{
       _type = ''
       console.log("退出")
+      // cookie退出
       $.ajax({
         url: '/api/users/signout',
         success : this.bindEventSucc.bind(this),
         error: this.bindEventErr.bind(this)
         
       })
+
+      // token退出
+      localStorage.removeItem('x-access-token')
+      location.reload()
     })
 
     $('#btn-submit').on('click', () => {
@@ -64,6 +72,9 @@ export default{
       $.ajax({
         url: _url,
         type: 'POST',
+        headers:{
+          'x-access-token':localStorage.getItem('x-access-token')
+        },//首部上传数据
         data,
         success:this.bindEventSucc.bind(this),
         // success(result) {
@@ -97,7 +108,7 @@ export default{
   bindEventErr(result){
     alert(result.data.msg)
   },
-  bindEventSucc(result){
+  bindEventSucc(result,textStatus,xhr){
     console.log(result.data.msg)
     console.log(result)
     if(_type === 'btn-signup'){
@@ -105,11 +116,24 @@ export default{
 
     }else if(_type === "btn-signin"){
       if (result.ret) {
+        _type = ''
+        let token1 = result.data.token
+        console.log("token1:"+token1)
         let html = userView({
           isSignin: true,
           username: result.data.username
         })
         $('#user-menu').html(html)
+
+        // 取返回token
+        console.log(textStatus)
+        console.log(xhr)
+        // console.log(xhr.getResponseHeader('x-access-token'))
+        let token =  xhr.getResponseHeader('x-access-token')
+        console.log("token:"+token)
+        localStorage.setItem('x-access-token',token)
+
+
         this.bindEventToBtn()
         
       }else{

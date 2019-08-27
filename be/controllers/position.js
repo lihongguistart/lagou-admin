@@ -69,8 +69,7 @@ module.exports = {
       console.log(3333)
       data.companyLogo=req.filename
     }
-    req.filename = ''
-    // req.filename ? (data.companyLogo=req.filename) : ""
+    
     console.log(data.companyLogo)
     let result = await posModel.patch(data)
     console.log(result)

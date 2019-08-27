@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const positionController = require('../controllers/position')
-// const userController = require('../controllers/users')
+const userController = require('../controllers/users')
 const authMiddleware = require('../middlewares/auth')
 const fileuploadMiddleware = require('../middlewares/fileupload')
 
@@ -11,6 +11,7 @@ const fileuploadMiddleware = require('../middlewares/fileupload')
 /* GET home page. */
 console.log("职位接口")
 router.get('/list', authMiddleware.auth, positionController.list);//取
+// router.get('/list', userController.isSignin, positionController.list);//取
 router.post('/save',authMiddleware.auth, fileuploadMiddleware,positionController.save)//增
 router.post('/findone',authMiddleware.auth, positionController.findone)//查
 // router.put('/put',authMiddleware.auth, positionController.put)//改

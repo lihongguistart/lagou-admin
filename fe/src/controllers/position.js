@@ -9,6 +9,9 @@ function loadData(page,res){
   res.page = page
   $.ajax({
     url: '/api/position/list',
+    headers:{
+      'x-access-token':localStorage.getItem('x-access-token')
+    },//首部上传数据
     data:{
       page,
       count,
@@ -40,6 +43,9 @@ function remove(id, res) {
   $.ajax({
     url: '/api/position/delete',
     type: 'DELETE',
+    headers:{
+      'x-access-token':localStorage.getItem('x-access-token')
+    },//首部上传数据
     data: {
       id
     },
@@ -118,6 +124,9 @@ export default{
       $.ajax({
         url:'/api/position/search',
         type: "POST",
+        headers:{
+          'x-access-token':localStorage.getItem('x-access-token')
+        },//首部上传数据
         data:{
           keywords
         },
@@ -143,6 +152,9 @@ export default{
       $('#possave').ajaxSubmit({
         url: '/api/position/save',
         type: 'POST',
+        headers:{
+          'x-access-token':localStorage.getItem('x-access-token')
+        },//首部上传数据
         clearForm: true,
         success(result){
           if(result.ret){
@@ -174,6 +186,9 @@ export default{
     $.ajax({
       url: '/api/position/findone',
       type: 'POST',
+      headers:{
+        'x-access-token':localStorage.getItem('x-access-token')
+      },//首部上传数据
       data: {
         id: req.body.id,
       },
@@ -191,6 +206,9 @@ export default{
           $('#posedit').ajaxSubmit({
             url: '/api/position/patch',
             type:'PATCH',
+            headers:{
+              'x-access-token':localStorage.getItem('x-access-token')
+            },//首部上传数据
             success(result){
               console.log(result.data)
               if(result.ret){

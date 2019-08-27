@@ -12,7 +12,11 @@
         <div class="col-sm-10">
 
           <div>
-            <img width="50" height="50" src="http://localhost:3000/uploads/{{companyLogo}}" alt="">
+              {{if companyLogo}}
+              <img width="50" height="50" src="http://localhost:3000/uploads/{{companyLogo}}" alt="">
+              {{else}}
+              <img width="50" height="50" src="http://placehold.it/50x50" alt="">
+              {{/if}}
           </div>
 
           <input type="file" class="form-control" name="companyLogo" id="companyLogo" placeholder="请选择公司logo图片">

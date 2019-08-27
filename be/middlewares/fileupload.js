@@ -22,6 +22,8 @@ var storage = multer.diskStorage({
   filename: function(req, file, cb){
     console.log(req.body)
     filename = strRandom(8) + "-" +Date.now() + file.originalname.substr(file.originalname.lastIndexOf('.'))
+
+    req.filename = filename
     cb(null,filename)
   }
 })
@@ -59,8 +61,10 @@ module.exports = (req,res,next)=>{
     }else{
       // 中间件栈传参
       console.log(req.body)
-      req.filename = filename
-      filename = ''
+      if(req.body.companyLogo ===''){
+        delete req.body.companyLogo
+      }
+      
       next()
     }
   })
